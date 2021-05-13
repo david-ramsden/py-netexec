@@ -57,7 +57,7 @@ def main():
 				if arg is None:
 					raise Exception('no username provided')
 				username = arg
-			elif opt in ('-d', '--device')
+			elif opt in ('-d', '--device'):
 				if arg is None:
 					raise Exception('no device type provided')
 				device_type = arg
