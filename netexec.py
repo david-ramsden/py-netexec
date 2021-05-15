@@ -27,9 +27,9 @@ def usage():
 	print(f'{__file__} -c <config ini> -o <output file> [-u <username>] [-d <device type>]')
 	return
 
-def command_header(switch, command, fh):
+def command_header(device, command, fh):
 	print('*' * 80, file=fh)
-	print(f'* {switch.upper()}: {command}', file=fh)
+	print(f'* {device.upper()}: {command}', file=fh)
 	print('*' * 80, file=fh)
 	return
 
@@ -102,25 +102,25 @@ def main():
 		print(f'Unable to open {output_file} for writing: {err}')
 		sys.exit(2)
 
-	# Parse each section, where a section represents a switch.
-	for switch in config.sections():
+	# Parse each section, where a section represents a device.
+	for device in config.sections():
 		# Ignore the 'all' section.
-		if switch == 'all':
+		if device == 'all':
 			continue
 
 		# Set up device to connect to.
-		device = {
+		connect_to = {
 			'device_type': device_type,
-			'host': config.get(switch, 'ip'),
+			'host': config.get(device, 'ip'),
 			'username': username,
 			'password': password,
 			'fast_cli': True,
 		}
 
 		# Connect.
-		print(f"Connecting to {switch.upper()} ({config.get(switch, 'ip')}):")
+		print(f"Connecting to {device.upper()} ({config.get(device, 'ip')}):")
 		try:
-			net_connect = ConnectHandler(**device)
+			net_connect = ConnectHandler(**connect_to)
 		except Exception as err:
 			print(f'Unable to connect: {err}')
 			continue
@@ -128,13 +128,13 @@ def main():
 		# Execute commands from the 'all' section.
 		for command in config.get('all', 'commands').split(','):
 			print(f'\tSend: {command}')
-			command_header(switch, command, outfile)
+			command_header(device, command, outfile)
 			print(net_connect.send_command(command), file=outfile)
 
-		# Execute commands specific to this switch.
-		for command in config.get(switch, 'commands').split(','):
+		# Execute commands specific to this device.
+		for command in config.get(device, 'commands').split(','):
 			print(f'\tSend: {command}')
-			command_header(switch, command, outfile)
+			command_header(device, command, outfile)
 			print(net_connect.send_command(command), file=outfile)
 
 		# Disconnect.
