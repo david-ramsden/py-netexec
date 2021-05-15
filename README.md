@@ -1,4 +1,4 @@
-# Execute Multiple CLI Commands on Network Devices
+# Execute Multiple CLI Commands on Multiple Network Devices
 
 # Introduction
 This is a simple script that uses the [Netmiko](https://pypi.org/project/netmiko/) library in combination with a simple configuration file to execute multiple commands on multiple devices and capture the output to a file.
