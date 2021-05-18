@@ -126,16 +126,22 @@ def main():
 			continue
 
 		# Execute commands from the 'all' section.
-		for command in config.get('all', 'commands').split(','):
-			print(f'\tSend: {command}')
-			command_header(device, command, outfile)
-			print(net_connect.send_command(command), file=outfile)
+		try:
+			for command in config.get('all', 'commands').split(','):
+				print(f'\tSend: {command}')
+				command_header(device, command, outfile)
+				print(net_connect.send_command(command), file=outfile)
+		except:
+			pass
 
 		# Execute commands specific to this device.
-		for command in config.get(device, 'commands').split(','):
-			print(f'\tSend: {command}')
-			command_header(device, command, outfile)
-			print(net_connect.send_command(command), file=outfile)
+		try:
+			for command in config.get(device, 'commands').split(','):
+				print(f'\tSend: {command}')
+				command_header(device, command, outfile)
+				print(net_connect.send_command(command), file=outfile)
+		except:
+			pass
 
 		# Disconnect.
 		print('Disconnecting.')
