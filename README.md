@@ -4,7 +4,7 @@
 This is a simple script that uses the [Netmiko](https://pypi.org/project/netmiko/) library in combination with a simple configuration file to execute multiple commands on multiple devices and capture the output to a file.
 
 ## Why?
-This script was written to aid an NX-OS upgrade where I didn't have GIR (Graceful Insertion and Removal) available and therefore had no "snapshot" capability and wanted to take some pre and post statistics that could be diff'd. There were a number of VDCs and so this script ensured the same commands were executed across all devices in a consistent manner, as well as saving time during the maintenance window.
+This script was written to aid an NX-OS upgrade where I didn't have GIR (Graceful Insertion and Removal) available and therefore had no "snapshot" capability and wanted to take some pre and post statistics that could be diff'd. There were several VDCs and so this script ensured the same commands were executed across all devices in a consistent manner, as well as saving time during the maintenance window.
 
 # Requirements
 * Python 3 (tested on Linux only but should work on macOS and Windows).
@@ -28,4 +28,4 @@ A configuration file is required which contains the hosts to connect to and the 
 
 # Limitations
 1. The device type can only be specified as an argument and not in the configuration file (i.e. per device).
-2. It is assumed the user will have an appropriate priviledge level and doesn't need to elevate.
+2. It is assumed the user will have an appropriate privilege level and doesn't need to elevate.
