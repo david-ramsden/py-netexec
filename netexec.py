@@ -71,17 +71,29 @@ def main():
 	# Instansiate ConfigParser.
 	config = ConfigParser()
 
-	# Get current user if the username option was not provided.
-	try:
-		username
-	except NameError:
-		username = getpass.getuser()
-
+	# If 'device type' option is '?', force Netmiko to raise an exception with the supported platforms.
+	if device_type == '?':
+		try:
+			device = {
+				'device_type': device_type,
+			}
+			
+			ConnectHandler(**device)
+		except ValueError as err:
+			print(f'{err}')
+			sys.exit(2)
+	
 	# Get device type if specified, otherwise default to 'cisco_nxos'
 	try:
 		device_type
 	except NameError:
 		device_type = 'cisco_nxos'
+	
+	# Get current user if the username option was not provided.
+	try:
+		username
+	except NameError:
+		username = getpass.getuser()
 
 	# Get password to use.
 	password = getpass.getpass(f'Password for {username}: ')
