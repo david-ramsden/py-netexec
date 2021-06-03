@@ -24,7 +24,7 @@ A configuration file is required which contains the hosts to connect to and the 
 
 ## Optional arguments:
 * `-u <username>` / `--username <username>`: The username to log in to the device with. If not specified uses the username of the user executing the script.
-* `-d <device type>` / `--device <device type>`: The device type of the devices in the configuration file. Defaults to 'cisco_nxos'. These are the supported Netmiko platforms.
+* `-d <device type>` / `--device <device type>`: The device type of the devices in the configuration file. Defaults to 'cisco_nxos'. If the device type is '?', a list of supported platforms will be displayed.
 
 # Limitations
 1. The device type can only be specified as an argument and not in the configuration file (i.e. per device).
